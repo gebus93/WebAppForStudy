@@ -1,7 +1,7 @@
 package pl.gebickionline.webappforstudy.errorhandler;
 
 import org.jboss.resteasy.api.validation.*;
-import org.json.JSONArray;
+import org.json.*;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.*;
@@ -23,7 +23,9 @@ public class ValidationErrorMapper implements ExceptionMapper<ResteasyViolationE
         }
 
         return Response.status(Response.Status.BAD_REQUEST)
-                .entity(errors.toString())
+                .entity(
+                        new JSONObject().put("errors", errors).toString()
+                )
                 .header("content-type", "application/json;charset=UTF-8")
                 .build();
     }
