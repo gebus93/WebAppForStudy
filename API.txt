@@ -1,0 +1,229 @@
+﻿---------------------------------------------------
+Logowanie do systemu:
+POST /rest/user/login
+{"login":"", "password": ""}
+
+Response: 200 / 401
+---------------------------------------------------
+Wylogowanie
+POST /rest/user/logout
+
+Response: 200
+---------------------------------------------------
+Pobieranie danych konta zalogowanego:
+GET /rest/user
+
+Response: 200
+{"login": ""}
+
+lub gdy użytkownik nie jest zalogowany to 401
+
+
+=====
+
+---------------------------------------------------
+Właczanie widocznosci zakladki "aktualności":
+PUT /rest/admin/news/visibility
+
+Response: 200 / 401
+---------------------------------------------------
+Wyłaczanie widocznosci zakladki "aktualności":
+DELETE /rest/admin/news/visibility
+
+Response: 200 / 401
+---------------------------------------------------
+Pobieranie stanu widocznosci zakladki "aktualności":
+GET /rest/news/visibility
+
+Response: 200
+{"visible":true}
+---------------------------------------------------
+Dodawanie nowej aktualności:
+POST /rest/admin/news
+{
+    "title":"",
+    "content":""
+}
+
+Response: 201 
+{"id":"1"}
+
+lub gdy użytkownik nie jest zalogowany to 401
+---------------------------------------------------
+Modyfikacja aktualności:
+PUT /rest/admin/news/{id}
+{
+    "title":"",
+    "content":""
+}
+
+Response: 200 / 401
+---------------------------------------------------
+Usuwanie aktualności:
+DELETE /rest/admin/news/{id}
+
+Response: 204 / 401
+---------------------------------------------------
+Pobieranie listy aktualności w panelu administracyjnym:
+GET /rest/admin/news/list
+
+Response: 200
+[
+    {
+        "id":"",
+        "title":"",
+        "content":"",
+        "creationTime":"yyyyMMdd hhmm",
+        "lastUpdateTime":"yyyyMMdd hhmm"
+    }
+]
+
+lub gdy użytkownik nie jest zalogowany to 401
+---------------------------------------------------
+Pobieranie listy aktualności:
+GET /rest/news/list?perPage={perPage}&page={pageNumber}
+
+Response: 200
+{
+    "pages": "5",
+    "news" : [
+        {
+            "title":"",
+            "content":"",
+            "creationTime":"yyyyMMdd hhmm",
+            "lastUpdateTime":"yyyyMMdd hhmm"
+        }
+    ]
+}
+
+---------------------------------------------------
+
+=====
+
+---------------------------------------------------
+Aktualizacja listy grup. Usunięcie grupy z listy powoduje usunięcie wszystkich przypisanych do niej usług.
+
+POST /rest/admin/service/group
+[
+    {
+        "id":"",
+        "ordinal":"",
+        "name":"",
+        "visible":true
+    }
+]
+
+id - identyfikator grupy zwracany przy pobieraniu. Przy dodawaniu nowej grupy nie należy go podawać.
+
+Response: 200 / 401
+---------------------------------------------------
+Pobieranie listy grup w panelu administracyjnym
+
+GET /rest/admin/service/group
+
+Response: 200
+[
+    {
+        "id":"",
+        "ordinal":"",
+        "name":"",
+        "visible":true
+    }
+]
+
+lub gdy użytkownik nie jest zalogowany to 401
+---------------------------------------------------
+Pobieranie listy grup poza panelem administracyjnym
+
+GET /rest/service/group
+
+Response: 200
+[
+    {
+        "id":"",
+        "ordinal":"",
+        "name":""
+    }
+]
+
+---------------------------------------------------
+
+=====
+
+---------------------------------------------------
+Aktualizacja listy usług.
+
+POST /rest/admin/service
+[
+    {
+        "id":"",
+        "ordinal":"",
+        "name":"",
+        "price":"",
+        "minPrice":"",
+        "maxPrice":"",
+        "visible":true,
+        "groupID":""
+    }
+]
+
+id - identyfikator usługi zwracany przy pobieraniu. Przy dodawaniu nowej usługi nie należy go podawać.
+
+Response: 200 / 401
+---------------------------------------------------
+Pobieranie listy usług w panelu administracyjnym.
+
+GET /rest/admin/service
+
+Response: 200
+[
+    {
+        "id":"",
+        "ordinal":"",
+        "name":"",
+        "price":"",
+        "minPrice":"",
+        "maxPrice":"",
+        "visible":true,
+        "groupID":""
+    }
+]
+
+lub gdy użytkownik nie jest zalogowany to 401
+---------------------------------------------------
+Pobieranie listy usług poza panelem administracyjnym.
+
+GET /rest/service
+
+Response: 200
+[
+    {
+        "ordinal":"",
+        "name":"",
+        "price":"",
+        "minPrice":"",
+        "maxPrice":"",
+        "groupID":""
+    }
+]
+
+---------------------------------------------------
+
+=====
+
+---------------------------------------------------
+Aktualizowanie treści strony "Kontakt":
+POST /rest/admin/contact
+{
+    "content": ""
+}
+
+Response: 200 / 401
+---------------------------------------------------
+Pobieranie treści strony "Kontakt":
+GET /rest/contact
+
+Response: 200
+{
+    "content":""
+}

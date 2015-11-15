@@ -1,0 +1,53 @@
+Sama dokumentacja = 4
+Dokumentacja + kod = 5
+
+--------------------------------------------------
+
+
+Aplikacja webowa dla małych firm:
+
+CRUD - CREATE, READ, UPDATE, DELETE
+
+- CRUD aktualności (+ on/off)
+- CRUD grupa usług (nazwa grupy, widoczność, nr porzadkowy)
+- CRUD usług (nazwa usługi, cena, widoczność, grupa, nr porzadkowy)
+- Strona z danymi kontaktowymi (Edycja treści)
+
+------------UI------------
+Pasek nawigacji:
+	1. Aktualności
+	2. Cennik
+	3. Kontakt
+
+Panel administracyjny:
+	1. Strona logowania pod linkiem niewidocznym z zewnatrz.
+	2. Aktualności:
+		- lista aktualności (data, tytuł, autor)
+		- dodawanie nowej (tytuł, treść)
+		- edycja (tytuł, treść)
+		- usunięcie (jako przycisk na liście + okienko z potwierdzeniem usunięcia)
+
+	3. Grupy:
+		- lista grup (nr porzadkowy, nazwa, widoczność, strzałki do zmiany pozycji)
+			edycja może być zrealizowana na tym samym widoku.
+			Zależy jak Michałowi wygodniej.
+
+			Aktualizacja listy grup odbywała by się na przesłaniu do backendu aktualnego stanu listy.
+
+			Jak grupa zostanie usunięta, to wszystkie powiazane z nia usługi również.
+
+
+	4. Usługi - podobnie jak powyżej. Widzę to tak:
+		- pobranie listy grup i wyświetlenie i we właściwej kolejności.
+		- przy każdej nazwie grupy przycisk "dodaj usługę". Po kliknięciu, usługa pojawia się na koncu listy uslug z danej grupy, a administrator wpisuje odpowiednio jej nazwę i cenę, a po prawej stronie klika przycisk "Zapisz".
+
+		Przykład:
+
+		1. Grupa pierwsza [Dodaj usługę]
+			> Usługa pierwsza | 150zł  |  [Edytuj] [Usun]
+			> [Wpisz nazwe]   | [cena] |  [Zapisz] [Anuluj]
+		1. Grupa druga [Dodaj usługę]
+			> Usługa druga    | 100zł  |  [Edytuj] [Usun]
+			> [Wpisz nazwe]   | [cena] |  [Zapisz] [Anuluj]
+
+	5. Podstrona Kontakt - zwykła edycja.
