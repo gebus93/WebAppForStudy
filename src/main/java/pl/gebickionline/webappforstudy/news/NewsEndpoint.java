@@ -1,13 +1,12 @@
 package pl.gebickionline.webappforstudy.news;
 
+import pl.gebickionline.webappforstudy.security.Public;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 import static javax.ws.rs.core.Response.Status.*;
 
-/**
- * Created by �ukasz on 2015-11-07.
- */
 @Path("/")
 public class NewsEndpoint {
     @Path("admin/news")
@@ -24,6 +23,7 @@ public class NewsEndpoint {
 
     @Path("news")
     @GET
+    @Public
     public Response getVisibility() {
         return Response.status(OK).build();
     }
@@ -54,6 +54,7 @@ public class NewsEndpoint {
 
     @Path("news")
     @GET
+    @Public
     public Response getPage() {
         return Response.status(OK).build();
     }

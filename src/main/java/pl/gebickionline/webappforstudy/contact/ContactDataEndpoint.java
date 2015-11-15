@@ -1,12 +1,11 @@
 package pl.gebickionline.webappforstudy.contact;
 
+import pl.gebickionline.webappforstudy.security.Public;
+
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
-/**
- * Created by Łukasz on 2015-11-15.
- */
 @Path("/")
 public class ContactDataEndpoint {
     @POST
@@ -16,6 +15,7 @@ public class ContactDataEndpoint {
     }
 
     @GET
+    @Public
     @Path("contact")
     public Response getContactData() {
         return Response.status(Response.Status.OK)

@@ -2,10 +2,9 @@ package pl.gebickionline.webappforstudy.user;
 
 import javax.persistence.*;
 
-/**
- * Created by Łukasz on 2015-11-15.
- */
 @Entity
+@Table(name = "users_details")
+@NamedQuery(name = "findUserByLogin", query = "SELECT u FROM User u WHERE u.login = :login")
 public class User {
 
     @Id
@@ -18,7 +17,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    private User() {
+    public User() {
     }
 
     public User(String login, String password) {

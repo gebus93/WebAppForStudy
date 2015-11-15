@@ -1,4 +1,4 @@
-package pl.gebickionline.webappforstudy.errorhandler;
+package pl.gebickionline.webappforstudy.exception.handler;
 
 import org.jboss.resteasy.api.validation.*;
 import org.json.*;
@@ -7,9 +7,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.*;
 import java.util.List;
 
-/**
- * Created by Łukasz on 2015-11-08.
- */
 @Provider
 public class ValidationErrorMapper implements ExceptionMapper<ResteasyViolationException> {
     @Override

@@ -1,4 +1,11 @@
-﻿---------------------------------------------------
+﻿Do wszystkich requestów należy dopisać nagłówek:
+"application" o wartości "1c226459-a721-4337-a7e6-f2864e0186b9"
+
+Po zalogowaniu zostanie zwrócony "auth_token", który należy później używać do wszystkich pozostałych requestów.
+
+Dodatkowo należy pamiętać aby zawsze przekazywać ciastko otrzymane od serwera o nazwie "JSESSIONID"
+
+---------------------------------------------------
 Logowanie do systemu:
 POST /rest/user/login
 {"login":"", "password": ""}

@@ -1,5 +1,7 @@
 package pl.gebickionline.webappforstudy.service;
 
+import pl.gebickionline.webappforstudy.security.Public;
+
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -7,9 +9,6 @@ import java.util.List;
 
 import static javax.ws.rs.core.Response.Status.OK;
 
-/**
- * Created by �ukasz on 2015-11-07.
- */
 @Path("/")
 public class ServiceEndpoint {
 
@@ -27,6 +26,7 @@ public class ServiceEndpoint {
 
     @Path("service")
     @GET
+    @Public
     public Response getAllVisible() {
         return Response.status(OK).build();
     }
