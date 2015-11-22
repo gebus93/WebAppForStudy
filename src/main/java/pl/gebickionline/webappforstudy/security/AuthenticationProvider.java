@@ -12,4 +12,5 @@ public interface AuthenticationProvider {
     AuthToken signIn(String login, String password);
 
     void signOut(AuthToken authToken);
+
 }

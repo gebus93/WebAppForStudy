@@ -27,8 +27,6 @@ public class UserEndpoint {
     @Path("login")
     @Public
     public Response login(@NotNull(message = "Należy podać dane logowania") @Valid UserLoginRequest request) {
-        logger.info("login: " + request.login);
-        logger.info("hasło: " + request.password);
         AuthToken token = userManager.authenticate(request.login, request.password);
         return Response.status(Response.Status.OK)
                 .entity(new JSONObject().put("auth_token", token.authToken()).toString())
@@ -45,8 +43,6 @@ public class UserEndpoint {
     @GET
     public Response userDetails() {
         Optional<UserDetails> userDetails = userManager.userDetails();
-        if (!userDetails.isPresent())
-            return Response.status(Response.Status.UNAUTHORIZED).build();
 
         String responseBody = new JSONObject()
                 .put("login", userDetails.get().login())

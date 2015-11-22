@@ -9,6 +9,7 @@ import java.util.*;
 @NamedQueries({
         @NamedQuery(name = "renewLastActivityTime", query = "UPDATE AuthenticationStorage SET lastActivityTime = CURRENT_TIMESTAMP WHERE authToken = :authToken"),
         @NamedQuery(name = "removeAuthentication", query = "DELETE FROM AuthenticationStorage WHERE authToken = :authToken"),
+        @NamedQuery(name = "removeOldAuthentications", query = "DELETE FROM AuthenticationStorage WHERE lastActivityTime  < :boundaryTime"),
         @NamedQuery(name = "findAuthTokenByUser", query = "SELECT a.authToken FROM AuthenticationStorage a WHERE a.user = :user")
 })
 public class AuthenticationStorage {

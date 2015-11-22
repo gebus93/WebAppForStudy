@@ -9,9 +9,10 @@ import javax.persistence.*;
 import javax.transaction.Transactional;
 import javax.ws.rs.core.MultivaluedMap;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Default
-public class AuthenticationProviderImpl implements AuthenticationProvider {
+public class AuthenticationProviderImpl implements AuthenticationProvider, AuthenticationCleaner {
     @Inject
     private UserContext context;
 
@@ -20,6 +21,8 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
 
     @PersistenceContext(unitName = "appPU")
     private EntityManager em;
+
+    private static final int SESSION_TIMEOUT = 2;
 
     @Override
     @Transactional
@@ -80,5 +83,15 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
                 .executeUpdate();
 
         context.clear();
+    }
+
+    @Override
+    @Transactional
+    public void logoutAllInactiveUsers() {
+        long boundaryTime = new Date().getTime() - TimeUnit.MINUTES.toMillis(SESSION_TIMEOUT);
+        em.createNamedQuery("removeOldAuthentications")
+                .setParameter("boundaryTime", new Date(boundaryTime))
+                .executeUpdate();
+
     }
 }

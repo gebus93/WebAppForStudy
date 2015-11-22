@@ -1,1 +1,2 @@
 INSERT INTO users_details(id, login, password) VALUES (1000, 'admin', '$2a$12$nwtdy6D9uZeREFlCJM2LQuPtEbBsFzLv.3xRTmI/u387wQjmWAcSK');
+INSERT INTO users_details(id, login, password) VALUES (1001, 'zenon', '$2a$12$nwtdy6D9uZeREFlCJM2LQuPtEbBsFzLv.3xRTmI/u387wQjmWAcSK');

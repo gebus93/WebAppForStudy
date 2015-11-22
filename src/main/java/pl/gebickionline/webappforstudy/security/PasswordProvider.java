@@ -25,7 +25,7 @@ public class PasswordProvider {
      *                           or when changing an account's password.
      * @return String - a string of length 60 that is the bcrypt hashed password in crypt(3) format.
      */
-    public static String hashPassword(String password_plaintext) {
+    public String hashPassword(String password_plaintext) {
         String salt = BCrypt.gensalt(workload);
         String hashed_password = BCrypt.hashpw(password_plaintext, salt);
 
@@ -41,7 +41,7 @@ public class PasswordProvider {
      * @param stored_hash        The account's stored password hash, retrieved from the authorization database
      * @return boolean - true if the password matches the password of the stored hash, false otherwise
      */
-    public static boolean checkPassword(String password_plaintext, String stored_hash) {
+    public boolean checkPassword(String password_plaintext, String stored_hash) {
         boolean password_verified = false;
 
         if (null == stored_hash || !stored_hash.startsWith("$2a$"))
@@ -57,7 +57,7 @@ public class PasswordProvider {
      * for the password it represents, and also generate a new hash and ensure that the new hash verifies
      * just the same.
      */
-    public static void main(String[] args) {
+    public void main(String[] args) {
         String test_passwd = "abcdefghijklmnopqrstuvwxyz";
         String test_hash = "$2a$06$.rCVZVOThsIa97pEDOxvGuRRgzG64bvtJ0938xuqzv18d3ZpQhstC";
 
