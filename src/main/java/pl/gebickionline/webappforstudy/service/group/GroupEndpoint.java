@@ -10,6 +10,8 @@ import java.util.List;
 import static javax.ws.rs.core.Response.Status.OK;
 
 @Path("/")
+@Consumes("application/json")
+@Produces("application/json")
 public class GroupEndpoint {
 
     @Path("admin/service/group")
