@@ -19,7 +19,7 @@ public class AuthenticationStorage {
     private Integer id;
 
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String authToken;
 
     @OneToOne
