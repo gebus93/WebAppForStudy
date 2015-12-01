@@ -23,7 +23,7 @@ public class UserManager {
 
     public Optional<UserDetails> userDetails() {
         if (context.loggedInUser().isPresent())
-            return Optional.of(new UserDetails(context.loggedInUser().get().getLogin()));
+            return Optional.of(new UserDetails(context.loggedInUser().get().login()));
 
         return Optional.empty();
     }

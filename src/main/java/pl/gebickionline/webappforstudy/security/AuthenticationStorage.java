@@ -37,19 +37,19 @@ public class AuthenticationStorage {
         authToken = UUID.randomUUID().toString();
     }
 
-    public Integer getId() {
+    public Integer id() {
         return id;
     }
 
-    public String getAuthToken() {
+    public String authToken() {
         return authToken;
     }
 
-    public User getUser() {
+    public User user() {
         return user;
     }
 
-    public Date getLastActivityTime() {
+    public Date lastActivityTime() {
         return lastActivityTime;
     }
 }

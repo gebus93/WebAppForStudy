@@ -25,15 +25,15 @@ public class User {
         this.password = password;
     }
 
-    public Integer getId() {
+    public Integer id() {
         return id;
     }
 
-    public String getLogin() {
+    public String login() {
         return login;
     }
 
-    public String getPassword() {
+    public String password() {
         return password;
     }
 }

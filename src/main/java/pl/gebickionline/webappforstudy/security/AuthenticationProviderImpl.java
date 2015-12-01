@@ -65,14 +65,14 @@ public class AuthenticationProviderImpl implements AuthenticationProvider, Authe
 
         User user = userOptional.get();
 
-        if (!passwordProvider.checkPassword(password, user.getPassword()))
+        if (!passwordProvider.checkPassword(password, user.password()))
             throw new UnauthorizedException();
 
         context.loggedInUser(user);
 
         final AuthenticationStorage authenticationStorage = new AuthenticationStorage(user);
         em.persist(authenticationStorage);
-        return new AuthToken(authenticationStorage.getAuthToken());
+        return new AuthToken(authenticationStorage.authToken());
     }
 
     @Override

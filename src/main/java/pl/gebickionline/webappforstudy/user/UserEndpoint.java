@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import static pl.gebickionline.webappforstudy.security.AuthenticationProvider.AUTH_TOKEN_HEADER_KEY;
 
@@ -17,8 +16,6 @@ import static pl.gebickionline.webappforstudy.security.AuthenticationProvider.AU
 @Consumes("application/json")
 @Produces("application/json")
 public class UserEndpoint {
-
-    Logger logger = Logger.getLogger(UserEndpoint.class.getName());
 
     @Inject
     private UserManager userManager;
