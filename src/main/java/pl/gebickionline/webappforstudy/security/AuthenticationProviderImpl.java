@@ -1,5 +1,6 @@
 package pl.gebickionline.webappforstudy.security;
 
+import pl.gebickionline.webappforstudy.configuration.ConfigurationManager;
 import pl.gebickionline.webappforstudy.exception.UnauthorizedException;
 import pl.gebickionline.webappforstudy.user.*;
 
@@ -22,7 +23,8 @@ public class AuthenticationProviderImpl implements AuthenticationProvider, Authe
     @PersistenceContext(unitName = "appPU")
     private EntityManager em;
 
-    private static final int SESSION_TIMEOUT = 2;
+    @Inject
+    private ConfigurationManager configurationManager;
 
     @Override
     @Transactional
@@ -88,7 +90,8 @@ public class AuthenticationProviderImpl implements AuthenticationProvider, Authe
     @Override
     @Transactional
     public void logoutAllInactiveUsers() {
-        long boundaryTime = new Date().getTime() - TimeUnit.MINUTES.toMillis(SESSION_TIMEOUT);
+        int sessionTimeout = configurationManager.getInt("sessionTimeout");
+        long boundaryTime = new Date().getTime() - TimeUnit.MINUTES.toMillis(sessionTimeout);
         em.createNamedQuery("removeOldAuthentications")
                 .setParameter("boundaryTime", new Date(boundaryTime))
                 .executeUpdate();
