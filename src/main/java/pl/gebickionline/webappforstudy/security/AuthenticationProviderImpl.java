@@ -72,9 +72,20 @@ public class AuthenticationProviderImpl implements AuthenticationProvider, Authe
 
         context.loggedInUser(user);
 
-        final AuthenticationStorage authenticationStorage = new AuthenticationStorage(user);
-        em.persist(authenticationStorage);
-        return new AuthToken(authenticationStorage.authToken());
+        AuthToken authToken;
+        try {
+            String authTokenStr = em.createNamedQuery("findAuthTokenByUser", String.class)
+                    .setParameter("user", user)
+                    .getSingleResult();
+
+            authToken = new AuthToken(authTokenStr);
+        } catch (NoResultException e) {
+            final AuthenticationStorage authenticationStorage = new AuthenticationStorage(user);
+            em.persist(authenticationStorage);
+            authToken = new AuthToken(authenticationStorage.authToken());
+        }
+
+        return authToken;
     }
 
     @Override
