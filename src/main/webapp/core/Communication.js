@@ -4,25 +4,24 @@
 var Communication = new (function () {
 	var self = this;
 	var prefix = 'http://localhost:8080/rest/';
-	var admin = '';//'admin/';
 
 	this.post = function (task, data, callback) {
-		$.post(prefix + admin + task, data, function (data) {
-			callback(data);
+		$.post(prefix + task, data, function (data, status, xhr) {
+			callback(xhr.status);
 		});
 	};
 	this.put = function (task, data, callback) {
-		$.put(prefix + admin + task, data, function (data) {
+		$.put(prefix + task, data, function (data) {
 			callback(data);
 		});
 	};
 	this.delete = function (task, data, callback) {
-		$.delete(prefix + admin + task, data, function (data) {
+		$.delete(prefix + task, data, function (data) {
 			callback(data);
 		});
 	};
 	this.get = function (task, data, callback) {
-		$.get(prefix + admin + task, data, function (data) {
+		$.get(prefix + task, data, function (data) {
 			callback(data);
 		}, 'json');
 	};

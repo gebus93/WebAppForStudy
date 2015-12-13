@@ -4,10 +4,12 @@
 var Interface = new (function () {
 	var self = this;
 	var sections = null;
+	var admin = false;
 	this.$ = null;
 
 	this.init = function () {
 		this.$ = $('.main');
+		$('.login').click(self.login);
 		this.updateSectionsTab();
 		this.addNav();
 	};
@@ -46,12 +48,50 @@ var Interface = new (function () {
 	};
 
 	this.service = function (d) {
-		console.log(d);
+		var $content = Tpl.get('service-window');
+		var $services = [];
+		var $service = null;
+		//for (var i in d) {
+		for (var i = 0, j = 0; j < 5; j++) { // FOR DEBUG!
+			$service = Tpl.get('service');
+			$service.find('.name').html('Nazwa: ' + d[i].name);
+			$service.find('.group').html('Grupa: ' + d[i].groupID);
+			$service.find('.price').html('Cena: ' + d[i].price);
+			$service.find('.min-price').html('Cena minimalna: ' + d[i].minPrice);
+			$service.find('.max-price').html('Cena maksymalna: ' + d[i].maxPrice);
+			$services.push($service);
+		}
+		$content.html($services);
+		$('.content', '.main').html($content);
 	};
 
 	this.news = function (d) {
 		console.log(d);
 	};
+
+	this.login = function () {
+		var $content = Tpl.get('login-window');
+		$content.find('.login').html(['Login: ', $('<input/>', {id: 'login'})]);
+		$content.find('.password').html(['Hasło: ', $('<input/>', {id: 'password', type: 'password'})]);
+
+		$content.find('.button').click(function () {
+			var login = $('#login').val();
+			var password = $('#password').val();
+			var data = {'login': login, 'password': password};
+			Communication.post('user/login', data, function (status) {
+				if (status == 200) {
+					setAdminMode();
+				} else {
+					$('.error', $content).css('display', 'block');
+				}
+			});
+		});
+		$('.content', '.main').html($content);
+	};
+
+	function setAdminMode() { //TODO: adminMode ;/
+		$('.content', '.main').html('');
+	}
 
 	$(function () {
 		self.init();

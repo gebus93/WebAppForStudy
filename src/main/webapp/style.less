@@ -52,6 +52,73 @@ body {
     right: 0;
     color: #aaa;
     line-height: 2em;
+    .login {
+      float: right;
+      cursor: pointer;
+      padding: 0 2px;
+    }
+  }
+}
+
+.service-window {
+  .service {
+    float: left;
+    width: 320px;
+    max-height: 210px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 3px;
+    background: #333;
+    margin: 2px 2px;
+    > div {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 2px 5px;
+      color: white;
+      border: 1px solid #FFC;
+      border-radius: 3px;
+      position: relative;
+      box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+
+.login-window {
+  width: 320px;
+  height: 210px;
+  position: relative;
+  right: 0;
+  left: 0;
+  margin: auto;
+  padding: 5px;
+  color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  background: #333;
+  .login-content {
+    height: 80px;
+    padding: 50px 0;
+    .login {
+      margin: 2px;
+    }
+    .error {
+      color: red;
+      display: none;
+    }
+  }
+  .button {
+    cursor: pointer;
+    width: 75px;
+    height: 25px;
+    line-height: 25px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 5px;
+    position: absolute;
+    border: 1px solid #FFC;
+    border-radius: 3px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 0.3);
   }
 }
 
