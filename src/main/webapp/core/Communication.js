@@ -3,7 +3,7 @@
  */
 var Communication = new (function () {
 	var self = this;
-	var prefix = '/rest/';
+	var prefix = 'http://localhost:8080/rest/';
 	var admin = '';//'admin/';
 
 	this.post = function (task, data, callback) {
@@ -24,10 +24,10 @@ var Communication = new (function () {
 	this.get = function (task, data, callback) {
 		$.get(prefix + admin + task, data, function (data) {
 			callback(data);
-		}, 'jsonp');
+		}, 'json');
 	};
 
-	jQuery.each(['put', 'delete', 'get', 'post'], function (i, method) {
+	jQuery.each(['put', 'delete'], function (i, method) {
 		jQuery[method] = function (url, data, callback, type) {
 			if (jQuery.isFunction(data)) {
 				type = type || callback;
