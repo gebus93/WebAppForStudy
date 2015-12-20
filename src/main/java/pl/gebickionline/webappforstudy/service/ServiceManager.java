@@ -3,30 +3,30 @@ package pl.gebickionline.webappforstudy.service;
 import pl.gebickionline.webappforstudy.exception.*;
 import pl.gebickionline.webappforstudy.service.group.ServiceGroup;
 
-import javax.ejb.Stateless;
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-@Stateless
+@Transactional
 public class ServiceManager {
 
     @PersistenceContext(unitName = "appPU")
     private EntityManager em;
-    private List<Service> services;
 
     public void updateServiceList(@NotNull(message = "Lista usług nie może być wartością null") List<ServiceDTO> request) {
         List<Integer> ids = request
                 .stream()
+                .filter(s -> s.id != null)
                 .map(s -> s.id)
                 .collect(toList());
 
         List<Integer> nonExistingIds = getNonExistingServiceIds(ids);
 
         if (!nonExistingIds.isEmpty())
-            throw new ServiceNotFoundException(ids);
+            throw new ServiceNotFoundException(nonExistingIds);
 
         ServiceListDifference diff = getListDifference(ids);
 
@@ -39,7 +39,7 @@ public class ServiceManager {
 
         List<Service> servicesToAddOrUpdate = request
                 .stream()
-                .filter(req -> diff.servicesToAddOrUpdate.contains(req.id))
+                .filter(req -> req.id == null || diff.servicesToAddOrUpdate.contains(req.id))
                 .map(req -> new Service()
                         .id(req.id)
                         .ordinal(req.ordinal)
@@ -109,10 +109,7 @@ public class ServiceManager {
     }
 
     private List<Service> findAll() {
-        if (services == null)
-            services = em.createNamedQuery("Service.findAll", Service.class).getResultList();
-
-        return services;
+        return em.createNamedQuery("Service.findAll", Service.class).getResultList();
     }
 
     public List<ServiceDTO> getVisible() {

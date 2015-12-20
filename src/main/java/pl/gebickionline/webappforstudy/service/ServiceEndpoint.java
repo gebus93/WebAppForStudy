@@ -4,6 +4,7 @@ import pl.gebickionline.webappforstudy.security.Public;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -20,7 +21,7 @@ public class ServiceEndpoint {
 
     @Path("admin/service")
     @POST
-    public Response modifyServiceList(@Valid List<ServiceDTO> request) {
+    public Response modifyServiceList(@Valid @NotNull(message = "Lista usług nie może być wartością null") List<ServiceDTO> request) {
         manager.updateServiceList(request);
         return Response.status(OK).build();
     }

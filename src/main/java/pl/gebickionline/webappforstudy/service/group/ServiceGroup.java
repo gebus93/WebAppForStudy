@@ -10,6 +10,7 @@ import javax.persistence.*;
 })
 public class ServiceGroup {
     @Id
+    @GeneratedValue
     private Integer id;
 
     @Column(nullable = false)

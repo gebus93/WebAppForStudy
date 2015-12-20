@@ -1,12 +1,11 @@
 package pl.gebickionline.webappforstudy.service;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by Łukasz on 2015-11-15.
- */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ServiceDTO {
     public Integer id;
     @NotNull(message = "Numer porządkowy jest wymagany")

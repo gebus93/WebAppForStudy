@@ -3,29 +3,29 @@ package pl.gebickionline.webappforstudy.service.group;
 import org.jetbrains.annotations.NotNull;
 import pl.gebickionline.webappforstudy.exception.ServiceGroupNotFoundException;
 
-import javax.ejb.Stateless;
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-@Stateless
+@Transactional
 public class ServiceGroupManager {
 
     @PersistenceContext(unitName = "appPU")
     private EntityManager em;
-    private List<ServiceGroup> serviceGroups;
 
     public void updateGroupList(@NotNull("Lista grup nie może być wartością NULL") List<ServiceGroupDTO> request) {
         List<Integer> ids = request
                 .stream()
+                .filter(g -> g.id != null)
                 .map(g -> g.id)
                 .collect(toList());
 
         List<Integer> nonExistingIds = getNonExistingGroupsIds(ids);
 
         if (!nonExistingIds.isEmpty())
-            throw new ServiceGroupNotFoundException(ids);
+            throw new ServiceGroupNotFoundException(nonExistingIds);
 
         GroupListDifference diff = getListDifference(ids);
 
@@ -38,7 +38,7 @@ public class ServiceGroupManager {
 
         List<ServiceGroup> groupsToAddOrUpdate = request
                 .stream()
-                .filter(req -> diff.groupsToAddOrUpdate.contains(req.id))
+                .filter(req -> req.id == null || diff.groupsToAddOrUpdate.contains(req.id))
                 .map(req -> new ServiceGroup().id(req.id).ordinal(req.ordinal).name(req.name).visible(req.visible))
                 .collect(toList());
 
@@ -70,10 +70,7 @@ public class ServiceGroupManager {
     }
 
     private List<ServiceGroup> findAllGroups() {
-        if (serviceGroups == null)
-            serviceGroups = em.createNamedQuery("ServiceGroup.findAll", ServiceGroup.class).getResultList();
-
-        return serviceGroups;
+        return em.createNamedQuery("ServiceGroup.findAll", ServiceGroup.class).getResultList();
     }
 
     public List<ServiceGroupDTO> getAll() {
