@@ -2,6 +2,7 @@ package pl.gebickionline.webappforstudy.service;
 
 import pl.gebickionline.webappforstudy.security.Public;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -14,22 +15,32 @@ import static javax.ws.rs.core.Response.Status.OK;
 @Produces("application/json")
 public class ServiceEndpoint {
 
+    @Inject
+    private ServiceManager manager;
+
     @Path("admin/service")
     @POST
-    public Response modifyServiceList(@Valid List<ServiceRequest> request) {
+    public Response modifyServiceList(@Valid List<ServiceDTO> request) {
+        manager.updateServiceList(request);
         return Response.status(OK).build();
     }
 
     @Path("admin/service")
     @GET
     public Response getAll() {
-        return Response.status(OK).build();
+        List<ServiceDTO> response = manager.getAll();
+        return Response.status(OK)
+                .entity(response)
+                .build();
     }
 
     @Path("service")
     @GET
     @Public
     public Response getAllVisible() {
-        return Response.status(OK).build();
+        List<ServiceDTO> response = manager.getVisible();
+        return Response.status(OK)
+                .entity(response)
+                .build();
     }
 }

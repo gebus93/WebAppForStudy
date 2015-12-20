@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "ServiceGroup.findAll", query = "SELECT g FROM ServiceGroup g"),
+        @NamedQuery(name = "ServiceGroup.findByID", query = "SELECT g FROM ServiceGroup g WHERE g.id = :id"),
         @NamedQuery(name = "ServiceGroup.removeServicesFromGroup", query = "DELETE FROM Service s WHERE s.group = :group")
 })
 public class ServiceGroup {

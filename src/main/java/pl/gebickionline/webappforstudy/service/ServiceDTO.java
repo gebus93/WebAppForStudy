@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by Łukasz on 2015-11-15.
  */
-public class ServiceRequest {
+public class ServiceDTO {
     public Integer id;
     @NotNull(message = "Numer porządkowy jest wymagany")
     public Integer ordinal;
