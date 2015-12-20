@@ -3,31 +3,30 @@
  */
 var Communication = new (function () {
 	var self = this;
-	var prefix = '/rest/';
-	var admin = '';//'admin/';
+	var prefix = 'http://localhost:8080/rest/';
 
 	this.post = function (task, data, callback) {
-		$.post(prefix + admin + task, data, function (data) {
-			callback(data);
+		$.post(prefix + task, data, function (data, status, xhr) {
+			callback(xhr.status);
 		});
 	};
 	this.put = function (task, data, callback) {
-		$.put(prefix + admin + task, data, function (data) {
+		$.put(prefix + task, data, function (data) {
 			callback(data);
 		});
 	};
 	this.delete = function (task, data, callback) {
-		$.delete(prefix + admin + task, data, function (data) {
+		$.delete(prefix + task, data, function (data) {
 			callback(data);
 		});
 	};
 	this.get = function (task, data, callback) {
-		$.get(prefix + admin + task, data, function (data) {
+		$.get(prefix + task, data, function (data) {
 			callback(data);
-		}, 'jsonp');
+		}, 'json');
 	};
 
-	jQuery.each(['put', 'delete', 'get', 'post'], function (i, method) {
+	jQuery.each(['put', 'delete'], function (i, method) {
 		jQuery[method] = function (url, data, callback, type) {
 			if (jQuery.isFunction(data)) {
 				type = type || callback;
