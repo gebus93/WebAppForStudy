@@ -32,9 +32,9 @@ public class ServiceManager {
 
         diff.servicesToDelete
                 .stream()
-                .forEach(g -> {
-                    em.createNamedQuery("ServiceGroup.removeServicesFromGroup").setParameter("group", g).executeUpdate();
-                    em.remove(g);
+                .forEach(service -> {
+                    em.createNamedQuery("ServiceGroup.removeServicesFromGroup").setParameter("group", service.group()).executeUpdate();
+                    em.remove(service);
                 });
 
         List<Service> servicesToAddOrUpdate = request
@@ -98,6 +98,7 @@ public class ServiceManager {
                     ServiceDTO dto = new ServiceDTO();
                     dto.id = s.id();
                     dto.groupID = s.group().id();
+                    dto.ordinal = s.ordinal();
                     dto.name = s.name();
                     dto.maxPrice = s.maxPrice();
                     dto.minPrice = s.minPrice();
@@ -113,12 +114,21 @@ public class ServiceManager {
     }
 
     public List<ServiceDTO> getVisible() {
-        return getAll()
+        return findAll()
                 .stream()
-                .filter(s -> s.visible)
-                .map(s -> {
-                    s.visible = null;
-                    return s;
+                .filter(s -> s.group().visible())
+                .filter(Service::visible)
+                .map(s ->
+                {
+                    ServiceDTO dto = new ServiceDTO();
+                    dto.id = s.id();
+                    dto.groupID = s.group().id();
+                    dto.ordinal = s.ordinal();
+                    dto.name = s.name();
+                    dto.maxPrice = s.maxPrice();
+                    dto.minPrice = s.minPrice();
+                    dto.price = s.price();
+                    return dto;
                 })
                 .collect(toList());
     }

@@ -1,5 +1,6 @@
 package pl.gebickionline.webappforstudy.service.group;
 
+import pl.gebickionline.webappforstudy.exception.BadRequestException;
 import pl.gebickionline.webappforstudy.security.Public;
 
 import javax.inject.Inject;
@@ -22,6 +23,11 @@ public class ServiceGroupEndpoint {
     @Path("admin/service/group")
     @POST
     public Response modifyGroupList(@Valid @NotNull(message = "Lista grup nie może być wartością NULL.") List<ServiceGroupDTO> request) {
+        long distinctOrdinals = request.stream().map(g -> g.ordinal).distinct().count();
+
+        if (distinctOrdinals < request.size())
+            throw new BadRequestException("Numer porządkowy musi być unikatowy.");
+
         manager.updateGroupList(request);
         return Response.status(OK).build();
     }

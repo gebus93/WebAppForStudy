@@ -1,10 +1,10 @@
 <datasources>
     <datasource jndi-name="java:jboss/datasources/blaDS" pool-name="blaDS" enabled="true" use-java-context="true">
-        <connection-url>jdbc:h2:mem:WebAppForStudy;DB_CLOSE_DELAY=-1;INIT=CREATE SCHEMA IF NOT EXISTS ccmc</connection-url>
-        <driver>h2</driver>
+        <connection-url>jdbc:postgresql://localhost:5432/eFirma</connection-url>
+        <driver>postgresql</driver>
         <security>
-            <user-name>sa</user-name>
-            <password>sa</password>
+            <user-name>postgres</user-name>
+            <password>postgres</password>
         </security>
     </datasource>
 </datasources>
