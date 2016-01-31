@@ -32,10 +32,7 @@ public class ServiceManager {
 
         diff.servicesToDelete
                 .stream()
-                .forEach(service -> {
-                    em.createNamedQuery("ServiceGroup.removeServicesFromGroup").setParameter("group", service.group()).executeUpdate();
-                    em.remove(service);
-                });
+                .forEach(service -> em.remove(service));
 
         List<Service> servicesToAddOrUpdate = request
                 .stream()
